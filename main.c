@@ -28,14 +28,19 @@ void drawFilledCircle(SDL_Renderer* renderer, int cx, int cy, int radius) {
 
 int main(int argc, char *argv[])
 {
-    bool done=1 ;
-    int k;
-    int matr[MAXF][MAXC] = {{0}};
+    int** matr = crearMatriz_int(MAXF,MAXC);
+    if(!matr){
+        printf("Erorr Matriz");
+        return -1;
+    }
+    inicializarZero(matr,MAXF,MAXC);
     cargarOscilador2(matr,25,25);
     cargarOscilador2(matr,10,10);
 
     //Mucha de esta parametrizacion puede venir por linea de comando!!
-    int delay               = 100;
+    int delay = 100, k=0;
+    bool done=1 ;
+
     SDL_Window* window      = NULL;
     SDL_Renderer* renderer  = NULL;
     SDL_Event e;
@@ -79,8 +84,8 @@ int main(int argc, char *argv[])
         SDL_SetRenderDrawColor(renderer, 0x00, 0x00, 0x00, 0x00);
         SDL_RenderClear(renderer);
 
-        for(int i =0 ; i < MAXF; i++){
-            for(int j=0; j<MAXC; j++){
+        for(size_t i =0 ; i < MAXF; i++){
+            for(size_t j=0; j<MAXC; j++){
                 if(matr[i][j]== VIVO ){
                     fillRect.x = i*10; //Pos X
                     fillRect.y = j*10; //Pos Y
@@ -103,16 +108,16 @@ int main(int argc, char *argv[])
         //SDL_UpdateWindowSurface(window);
 
         //Titulo/caption de la ventana
-        SDL_SetWindowTitle(window, "conway's life gamee");
+        SDL_SetWindowTitle(window, "conway's life games");
         SDL_Delay(delay);
 
-        //Procesamiento de matriz?
+        //Procesamiento de matriz
         calcularEstado(matr);
         aplicarEstado(matr);
     }
 
     //destruyo todos los elementos creados
-    //Observar ni mas ni menos que destructores, en la asignatura no inventamos nada!
+    destruirMatriz(matr,MAXF);
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
     SDL_Quit();

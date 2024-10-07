@@ -9,7 +9,7 @@ void MostrarMAt(int m[MAXF][MAXC]){
   }
 }
 
-void cargarOscilador2(int matriz[MAXF][MAXC], int i, int j) {
+void cargarOscilador2(int** matriz, size_t i, size_t j) {
 
     matriz[j-4][i-4] = 1;
     matriz[j-4][i-3] = 1;
@@ -68,7 +68,7 @@ void cargarOscilador2(int matriz[MAXF][MAXC], int i, int j) {
     matriz[j+1][i+3] = 1;
 }
 
-int ContVecinos(int mtr[MAXF][MAXC], int i, int j){
+int ContVecinos(int** mtr, size_t i, size_t j){
     int f,c,cont=0;
 
    for(f=i-1; f <= i+1 ; f++ ){
@@ -84,7 +84,7 @@ int ContVecinos(int mtr[MAXF][MAXC], int i, int j){
     return cont ;
 }
 
-void calcularEstado(int matriz[MAXF][MAXC]){
+void calcularEstado(int** matriz){
     int i,j,cantVeci=0;
     for(i=0; i < MAXF ; i++){
         for(j=0; j < MAXC ; j++){
@@ -98,7 +98,7 @@ void calcularEstado(int matriz[MAXF][MAXC]){
         }
     }
 }
-void aplicarEstado(int matriz[MAXF][MAXC]){
+void aplicarEstado(int** matriz){
     int i,j;
     for(i=0; i < MAXF ; i++){
         for(j=0; j < MAXC ; j++){
@@ -108,6 +108,43 @@ void aplicarEstado(int matriz[MAXF][MAXC]){
             if(matriz[i][j]== NACIENDO){
                 matriz[i][j] = VIVO;
             }
+        }
+    }
+}
+
+int** crearMatriz_int(size_t filas , size_t columns ){
+    int** Matriz, **ini;
+
+    Matriz = malloc( filas * sizeof(int*) );
+    if(!Matriz){
+        printf("Error al asignar memoria Matriz INT");
+        return NULL;
+    }
+    ini = Matriz;
+    for(size_t i=0 ; i < filas ;i++){
+        *Matriz = malloc(columns * sizeof(int) );
+        if(!*Matriz){
+            destruirMatriz(Matriz,i);
+            printf("Error al asignar memoria Matriz INT");
+            return NULL;
+        }
+        Matriz++;
+    }
+    return ini;
+}
+void destruirMatriz(int**mtr, size_t filas){
+    int**matriz= mtr;
+    for(size_t i =0 ; i<filas; i++){
+        free(*mtr);
+        mtr++;
+    }
+    free(matriz);
+}
+void inicializarZero(int** matr, size_t fil, size_t col){
+    size_t i,j;
+    for( i= 0 ; i< fil ; i++){
+        for( j = 0; j<col ; j++ ){
+            matr[i][j] = 0;
         }
     }
 }
