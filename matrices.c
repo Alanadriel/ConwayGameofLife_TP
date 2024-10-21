@@ -1,13 +1,5 @@
 #include "matrices.h"
-void MostrarMAt(int m[MAXF][MAXC]){
- int i,j;
- for(i=0; i< MAXF ; i++){
-    for(j=0; j<MAXC; j++){
-        printf("%d",m[i][j] );
-    }
-    printf("\n");
-  }
-}
+
 
 void cargarOscilador2(int** matriz, size_t i, size_t j) {
 
@@ -68,7 +60,7 @@ void cargarOscilador2(int** matriz, size_t i, size_t j) {
     matriz[j+1][i+3] = 1;
 }
 
-int ContVecinos(int** mtr, size_t i, size_t j){
+int ContVecinos(int** mtr, size_t i, size_t j,size_t MAXF, size_t MAXC){
     int f,c,cont=0;
 
    for(f=i-1; f <= i+1 ; f++ ){
@@ -84,11 +76,11 @@ int ContVecinos(int** mtr, size_t i, size_t j){
     return cont ;
 }
 
-void calcularEstado(int** matriz){
+void calcularEstado(int** matriz,size_t MAXF,size_t MAXC){
     int i,j,cantVeci=0;
     for(i=0; i < MAXF ; i++){
         for(j=0; j < MAXC ; j++){
-            cantVeci = ContVecinos(matriz,i,j);
+            cantVeci = ContVecinos(matriz,i,j,MAXF,MAXC);
             if(matriz[i][j]==MUERTO && cantVeci == NACIENDO){
                 matriz[i][j] = NACIENDO;
             }
@@ -98,7 +90,7 @@ void calcularEstado(int** matriz){
         }
     }
 }
-void aplicarEstado(int** matriz){
+void aplicarEstado(int** matriz,size_t MAXF,size_t MAXC){
     int i,j;
     for(i=0; i < MAXF ; i++){
         for(j=0; j < MAXC ; j++){

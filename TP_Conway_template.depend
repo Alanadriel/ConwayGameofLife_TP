@@ -810,15 +810,15 @@
 	<stdlib.h>
 	<stdbool.h>
 
-1728313450 source:c:\unlam\2c2024topicos\tp_conwaysgameoflife\matrices.c
+1728343274 source:c:\unlam\2c2024topicos\tp_conwaysgameoflife\matrices.c
 	"matrices.h"
 
-1728313436 c:\unlam\2c2024topicos\tp_conwaysgameoflife\matrices.h
+1729539346 c:\unlam\2c2024topicos\tp_conwaysgameoflife\matrices.h
 	<stdio.h>
 	<stdlib.h>
 	<stdbool.h>
 
-1728313577 source:c:\unlam\2c2024topicos\tp_conwaysgameoflife\main.c
+1729539761 source:c:\unlam\2c2024topicos\tp_conwaysgameoflife\main.c
 	<stdio.h>
 	<stdlib.h>
 	<unistd.h>
